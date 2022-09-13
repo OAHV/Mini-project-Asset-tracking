@@ -9,6 +9,9 @@ namespace Mini_project_Asset_tracking
 {
     internal class Menu
     {
+        // Cursor input row & column
+        public int Row { get; set; }
+        public int Col { get; set; }
         public Menu(string title, string prompt, List<MenuItem> items)
         {
             Title = title;
@@ -25,11 +28,15 @@ namespace Mini_project_Asset_tracking
             Console.WriteLine(Title);
             foreach (MenuItem item in Items) item.Display();
             Console.Write(Prompt);
+            saveCur();
         }
 
         public void Input()
         {
             bool found = false;
+            restoreCur();
+            Console.Write(" ".PadRight(50));
+            restoreCur();
             char inp = Console.ReadKey().KeyChar;
             foreach(MenuItem item in Items)
             {
@@ -41,6 +48,26 @@ namespace Mini_project_Asset_tracking
                 }
             }
             if(!found) Console.WriteLine("Invalid input...\n\n\n\n\n\n");
+        }
+
+        public void saveCur()
+        {
+            Row = Console.CursorTop;
+            Col = Console.CursorLeft;
+        }
+
+        public void restoreCur()
+        {
+            Console.CursorTop = Row;
+            Console.CursorLeft = Col;
+
+        }
+
+        public static void eraseLowerPart(int fromRow)
+        {
+            Console.CursorTop = fromRow;
+            for (int r = 0; r < Console.WindowHeight - fromRow - 1; r++) Console.WriteLine(" ".PadRight(60));
+            Console.CursorTop = fromRow;
         }
 
     }
