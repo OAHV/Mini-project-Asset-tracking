@@ -40,7 +40,7 @@ namespace Mini_project_Asset_tracking
                     break;
                 }
             }
-            if(!found) Console.WriteLine("Invalid input...");
+            if(!found) Console.WriteLine("Invalid input...\n\n\n\n\n\n");
         }
 
     }

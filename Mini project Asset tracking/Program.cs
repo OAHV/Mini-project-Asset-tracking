@@ -10,8 +10,9 @@
 // Create a console app that have classes and objects.
 // For example like below with computers and phones.
 // Laptop Computers
-// -MacBook (Asus, Lenovo)
-// -Mobile Phones (Iphone, Samsung, Nokia)
+// -MacBook, Asus, Lenovo
+// Mobile Phones
+// -Iphone, Samsung, Nokia
 // You will need to create the appropriate properties and constructors for each object,
 // like purchase date, price, model name etc.
 
@@ -37,7 +38,11 @@
 
 // All possible types of assets (phone, laptop, tablet etc.)
 using Mini_project_Asset_tracking;
+using Mini_project_Asset_tracking.IO;
 using System.ComponentModel.Design;
+
+// Initiate asset list (read from file)
+FileIO.ReadAssetsFromFile(FileIO.JsonAssetsFileName);
 
 // Create a main menu
 // First a list of menu items (rows)
@@ -48,6 +53,7 @@ List<MenuItem> menuItems = new List<MenuItem>
     new MenuItem("Quit", 3, "3qQ", ActionMethods.exitProgram)
 };
 
+// Add menu items to the main menu and display it on screen
 Menu mainMenu = new Menu("Main menu", "Your choise: ", menuItems);
 mainMenu.Display();
 
@@ -56,5 +62,8 @@ while (!ActionMethods.exit)
 {
     mainMenu.Input();
 }
+
+// Save assets to file before exit
+FileIO.WriteAssetsToFile(FileIO.JsonAssetsFileName);
 
 // By Ole Victor
