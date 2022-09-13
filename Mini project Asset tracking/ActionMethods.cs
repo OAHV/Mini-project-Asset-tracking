@@ -8,7 +8,7 @@ namespace Mini_project_Asset_tracking
 {
     static class ActionMethods
     {
-         public static bool exit = false;
+        public static bool exit = false;
         public static void listAssets()
         {
             foreach (Asset a in AssetLists.Assets) a.Display();
@@ -30,3 +30,5 @@ namespace Mini_project_Asset_tracking
 
     }
 }
+
+// By Ole Victor

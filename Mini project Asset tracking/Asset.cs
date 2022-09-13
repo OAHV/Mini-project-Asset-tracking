@@ -47,3 +47,5 @@ namespace Mini_project_Asset_tracking
         }
     }
 }
+
+// By Ole Victor

@@ -57,3 +57,4 @@ while (!ActionMethods.exit)
     mainMenu.Input();
 }
 
+// By Ole Victor
