@@ -14,7 +14,15 @@ namespace Mini_project_Asset_tracking.IO
 
         public static void ReadAssetsFromFile(string filename)
         {
-            string JSONdata = File.ReadAllText(filename);
+            string JSONdata = "";
+            try
+            {
+                JSONdata = File.ReadAllText(filename);
+            }
+            catch
+            {
+                Console.WriteLine("Error reading file");
+            }
             if (JSONdata != "")
             {
                 AssetLists.Assets = JsonSerializer.Deserialize<List<Asset>>(JSONdata);
@@ -28,3 +36,5 @@ namespace Mini_project_Asset_tracking.IO
         }
     }
 }
+
+// By Ole Victor

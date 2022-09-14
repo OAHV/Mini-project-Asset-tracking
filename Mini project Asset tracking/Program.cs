@@ -44,23 +44,14 @@ using System.ComponentModel.Design;
 // Initiate asset list (read from file)
 FileIO.ReadAssetsFromFile(FileIO.JsonAssetsFileName);
 
-// Create a main menu
-// First a list of menu items (rows)
-List<MenuItem> menuItems = new List<MenuItem>
-{
-    new MenuItem("List assets", 1, "1lL", ActionMethods.listAssets),
-    new MenuItem("Add assets", 2, "2aA", ActionMethods.addAssets),
-    new MenuItem("Quit", 3, "3qQ", ActionMethods.exitProgram)
-};
-
-// Add menu items to the main menu and display it on screen
-Menu mainMenu = new Menu("Main menu", "Your choise: ", menuItems);
-mainMenu.Display();
+// Display list and main menu take user choises
+Menues.mainMenu.Display();
 
 // Main loop
 while (!ActionMethods.exit)
 {
-    mainMenu.Input();
+    Menues.mainMenu.Input();
+    Menues.mainMenu.Display();
 }
 
 // Save assets to file before exit

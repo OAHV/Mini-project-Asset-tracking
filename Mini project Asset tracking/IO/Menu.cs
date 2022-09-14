@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mini_project_Asset_tracking.IO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,8 +8,37 @@ using System.Threading.Tasks;
 
 namespace Mini_project_Asset_tracking
 {
-    internal class Menu
+    public static class Menues
     {
+        // Create a sort menu
+        public static Menu sortMenu = new Menu("Choises for sorting", "Sort by: ", new List<MenuItem> {
+                new MenuItem("Sort by Price", 1, "1pP", ActionMethods.sortAssetsByPrice),
+                new MenuItem("Sort by Date purchased", 2, "2pPdD", ActionMethods.sortAssetsByDate),
+                new MenuItem("Sort by Date Name", 3, "3nN", ActionMethods.sortAssetsByName),
+                new MenuItem("Sort by Date Model", 4, "4mM", ActionMethods.sortAssetsByModel),
+                new MenuItem("Sort by Date Type", 5, "5tT", ActionMethods.sortAssetsByType),
+                new MenuItem("Sort by Date Brand", 6, "6bB", ActionMethods.sortAssetsByBrand)
+            });
+
+        // Create a main menu
+        // First a list of menu items (rows)
+        static List<MenuItem> menuItems = new List<MenuItem>
+        {
+            new MenuItem("List assets", 1, "1lL", ActionMethods.listAssets),
+            new MenuItem("Add assets", 2, "2aA", ActionMethods.addAssets),
+            new MenuItem("Sort assets", 3, "3sS", ActionMethods.sortAssets),
+            new MenuItem("Delete asset", 4, "4dD", ActionMethods.deleteAsset),
+            new MenuItem("Quit", 5, "5qQ", ActionMethods.exitProgram)
+        };
+
+        // Add menu items to the main menu and display it on screen
+        public static Menu mainMenu = new Menu("Main menu", "Your choise: ", menuItems);
+    }
+
+    public class Menu
+    {
+        public static char inp = ' ';
+
         // Cursor input row & column
         public int Row { get; set; }
         public int Col { get; set; }
@@ -23,12 +53,17 @@ namespace Mini_project_Asset_tracking
         string Prompt { get; set; }
         List<MenuItem> Items { get; set; }
 
-        public void Display()
+        public void Display(int row = 0)
         {
+            Console.Clear();
+            Console.CursorTop = row;
+            ConsoleScreen.highLight();
             Console.WriteLine(Title);
+            ConsoleScreen.setColor();
             foreach (MenuItem item in Items) item.Display();
             Console.Write(Prompt);
             saveCur();
+            ActionMethods.listAssets();
         }
 
         public void Input()
@@ -37,7 +72,7 @@ namespace Mini_project_Asset_tracking
             restoreCur();
             Console.Write(" ".PadRight(50));
             restoreCur();
-            char inp = Console.ReadKey().KeyChar;
+            inp = Console.ReadKey().KeyChar;
             foreach(MenuItem item in Items)
             {
                 if (item.Choises.Contains(inp)) 
@@ -47,7 +82,7 @@ namespace Mini_project_Asset_tracking
                     break;
                 }
             }
-            if(!found) Console.WriteLine("Invalid input...\n\n\n\n\n\n");
+            if(!found) Console.WriteLine("Invalid input...");
         }
 
         public void saveCur()
@@ -62,17 +97,9 @@ namespace Mini_project_Asset_tracking
             Console.CursorLeft = Col;
 
         }
-
-        public static void eraseLowerPart(int fromRow)
-        {
-            Console.CursorTop = fromRow;
-            for (int r = 0; r < Console.WindowHeight - fromRow - 1; r++) Console.WriteLine(" ".PadRight(60));
-            Console.CursorTop = fromRow;
-        }
-
     }
 
-    internal class MenuItem
+    public class MenuItem
     {
         string Title { get; set; }
         public int Number { get; set; }
