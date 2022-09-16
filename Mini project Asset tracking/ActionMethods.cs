@@ -78,7 +78,7 @@ namespace Mini_project_Asset_tracking
                         break;
                     default:
                         Console.CursorLeft = 0;
-                        Console.Write("Pleas answer 'y' or 'n': ");
+                        ConsoleScreen.errorDisplay("Pleas answer 'y' or 'n': ");
                         ok = '-';
                         break;
                 }
@@ -133,7 +133,7 @@ namespace Mini_project_Asset_tracking
                         break;
                     default:
                         // Any other input
-                        Console.Write("Faulty input");
+                        ConsoleScreen.errorDisplay("Faulty input");
                         break;
                 }
 

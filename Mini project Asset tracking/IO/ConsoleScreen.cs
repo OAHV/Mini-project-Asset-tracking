@@ -117,7 +117,7 @@ namespace Mini_project_Asset_tracking.IO
             Console.Write(prompt);
             while ((inputBuffer = Console.ReadLine()) == "")
             {
-                Console.Write(errorMessage);
+                ConsoleScreen.errorDisplay(errorMessage);
             }
             return inputBuffer;
         }
@@ -136,7 +136,7 @@ namespace Mini_project_Asset_tracking.IO
                 }
                 catch
                 {
-                    Console.Write(errorMessage);
+                    ConsoleScreen.errorDisplay(errorMessage);
                     inputBuffer = "";
                     continue;
                 }
@@ -158,13 +158,13 @@ namespace Mini_project_Asset_tracking.IO
                 }
                 catch
                 {
-                    Console.Write(errorMessage);
+                    ConsoleScreen.errorDisplay(errorMessage);
                     inputBuffer = "";
                     continue;
                 }
                 if (inputInt < 0)
                 {
-                    Console.Write(errorMessage);
+                    ConsoleScreen.errorDisplay(errorMessage);
                     inputBuffer = "";
                 }
             }
@@ -216,7 +216,7 @@ namespace Mini_project_Asset_tracking.IO
                 // If no matches after looping through the list
                 if(matches == 0)
                 {
-                    Console.WriteLine(errorMessage);
+                    ConsoleScreen.errorDisplay(errorMessage);
                     // Start again from scratch
                     inputBuffer = "";
                 }
