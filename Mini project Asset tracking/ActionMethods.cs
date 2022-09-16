@@ -21,8 +21,9 @@ namespace Mini_project_Asset_tracking
 
             // Print higlighted header
             ConsoleScreen.highLight();
-            Console.WriteLine("Name".PadRight(10) + "Model".PadRight(10) + "Price".PadLeft(7) 
-                + "   Purchased".PadRight(15) + "Type".PadRight(10) + "Brand".PadRight(10));
+            Console.WriteLine("Name".PadRight(10) + "Model".PadRight(10) + "Price".PadLeft(7)
+                + "   " + "Purchased".PadRight(12) + "End-of-Life".PadRight(12)
+                + "Type".PadRight(10) + "Brand".PadRight(10));
             ConsoleScreen.setAlertColor();
 
             // Print list of assets
@@ -168,30 +169,30 @@ namespace Mini_project_Asset_tracking
         public static void sortAssetsByPrice()
         {
             Console.WriteLine("In sortAssetsByPrice");
-            AssetLists.Assets = AssetLists.Assets.OrderBy(x => x.Price).ToList();
+            AssetLists.Assets = AssetLists.Assets.OrderBy(x => x.Price).ThenBy(x => x.PurchaseDate).ToList();
         }
 
         public static void sortAssetsByName()
         {
             Console.WriteLine("In sortAssetsByName");
-            AssetLists.Assets = AssetLists.Assets.OrderBy(x => x.Name).ToList();
+            AssetLists.Assets = AssetLists.Assets.OrderBy(x => x.Name).ThenBy(x => x.PurchaseDate).ToList();
         }
         public static void sortAssetsByModel()
         {
             Console.WriteLine("In sortAssetsByModel");
-            AssetLists.Assets = AssetLists.Assets.OrderBy(x => x.Model).ToList();
+            AssetLists.Assets = AssetLists.Assets.OrderBy(x => x.Model).ThenBy(x => x.PurchaseDate).ToList();
         }
 
         public static void sortAssetsByType()
         {
             Console.WriteLine("In sortAssetsByType");
-            AssetLists.Assets = AssetLists.Assets.OrderBy(x => x.Type).ToList();
+            AssetLists.Assets = AssetLists.Assets.OrderBy(x => x.Type).ThenBy(x => x.PurchaseDate).ToList();
         }
 
         public static void sortAssetsByBrand()
         {
             Console.WriteLine("In sortAssetsByBrand");
-            AssetLists.Assets = AssetLists.Assets.OrderBy(x => x.Brand).ToList();
+            AssetLists.Assets = AssetLists.Assets.OrderBy(x => x.Brand).ThenBy(x => x.PurchaseDate).ToList();
         }
 
         public static void exitProgram()

@@ -37,8 +37,6 @@ namespace Mini_project_Asset_tracking
 
     public class Menu
     {
-        public static char inp = ' ';
-
         // Cursor input row & column
         public int Row { get; set; }
         public int Col { get; set; }
@@ -68,21 +66,22 @@ namespace Mini_project_Asset_tracking
 
         public void Input()
         {
+            char inp = ' ';
             bool found = false;
             restoreCur();
             Console.Write(" ".PadRight(50));
             restoreCur();
             inp = Console.ReadKey().KeyChar;
-            foreach(MenuItem item in Items)
+            foreach (MenuItem item in Items)
             {
-                if (item.Choises.Contains(inp)) 
+                if (item.Choises.Contains(inp))
                 {
                     item.Perform();
                     found = true;
                     break;
                 }
             }
-            if(!found) Console.WriteLine("Invalid input...");
+            if (!found) Console.WriteLine("Invalid input...");
         }
 
         public void saveCur()

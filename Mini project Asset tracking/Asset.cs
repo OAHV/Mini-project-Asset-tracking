@@ -47,14 +47,16 @@ namespace Mini_project_Asset_tracking
             }
 
             // Print this asset on screen
-            Console.WriteLine(
+            Console.Write(
                 Name.PadRight(10) +
                 Model.PadRight(10) +
                 ("$" + Price).PadLeft(7) + "   " +
-                PurchaseDate.ToString("d").PadRight(12) +
-                Type.PadRight(10) +
-                Brand.PadRight(10)
-                );
+                PurchaseDate.ToString("d").PadRight(12));
+            if (EndOfLife < DateTime.Now.AddMonths(6)) Console.ForegroundColor = ConsoleColor.Yellow;
+            if (EndOfLife < DateTime.Now.AddMonths(3)) Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write(EndOfLife.ToString("d").PadRight(12));
+            ConsoleScreen.highLight(false);
+            Console.WriteLine(Type.PadRight(10) + Brand.PadRight(10));
 
             // Special case: Restore cursor row
             if (row != 0) ConsoleScreen.PopCursor();
