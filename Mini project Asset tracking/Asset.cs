@@ -39,12 +39,14 @@ namespace Mini_project_Asset_tracking
 
         public void Display(int row = 0)
         {
+            // Special case: Single row print (not a list)
             if (row != 0)
             {
-                ConsoleScreen.saveCur();
-                ConsoleScreen.curSet(row);
+                ConsoleScreen.PushCursor();
+                ConsoleScreen.curSet(row, 0);
             }
-            if (Brand == null) Brand = "";
+
+            // Print this asset on screen
             Console.WriteLine(
                 Name.PadRight(10) +
                 Model.PadRight(10) +
@@ -53,7 +55,9 @@ namespace Mini_project_Asset_tracking
                 Type.PadRight(10) +
                 Brand.PadRight(10)
                 );
-            if(row != 0) ConsoleScreen.restoreCur();
+
+            // Special case: Restore cursor row
+            if (row != 0) ConsoleScreen.PopCursor();
         }
     }
 }

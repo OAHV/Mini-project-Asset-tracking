@@ -59,7 +59,7 @@ namespace Mini_project_Asset_tracking
             Console.CursorTop = row;
             ConsoleScreen.highLight();
             Console.WriteLine(Title);
-            ConsoleScreen.setColor();
+            ConsoleScreen.setAlertColor();
             foreach (MenuItem item in Items) item.Display();
             Console.Write(Prompt);
             saveCur();
