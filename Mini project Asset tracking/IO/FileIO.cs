@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Mini_project_Asset_tracking.IO
 {
@@ -39,24 +40,13 @@ namespace Mini_project_Asset_tracking.IO
         // Save all assets to JSON file
         public static void WriteAssetsToFile(string filename)
         {
+            // Options for pretty/readable JSON file
+            var options = new JsonSerializerOptions { WriteIndented = true };
             // Serialize entire asset list
-            string JSONdata = JsonSerializer.Serialize(AssetLists.Assets);
+            string JSONdata = JsonSerializer.Serialize(AssetLists.Assets, options);
             // Write ie to JSON file
             File.WriteAllText(filename, JSONdata);
         }
-
-        //public static void ReadFile()
-        //{
-        //    OpenFileDialog openDialog = new OpenFileDialog();
-        //    openDialog.Title = "Select A File";
-        //    openDialog.Filter = "Text Files (*.txt)|*.txt" + "|" +
-        //                        "Image Files (*.png;*.jpg)|*.png;*.jpg" + "|" +
-        //                        "All Files (*.*)|*.*";
-        //    if (openDialog.ShowDialog() == DialogResult.OK)
-        //    {
-        //        string file = openDialog.FileName;
-        //    }
-        //}
     }
 }
 

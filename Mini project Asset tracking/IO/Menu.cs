@@ -31,8 +31,7 @@ namespace Mini_project_Asset_tracking
             new MenuItem("Add assets", 2, "2aA", ActionMethods.addAssets),
             new MenuItem("Sort assets", 3, "3sS", ActionMethods.sortAssets),
             new MenuItem("Delete asset", 4, "4dD", ActionMethods.deleteAsset),
-            //new MenuItem("Read asset", 5, "5rR", ActionMethods.readFile),
-            new MenuItem("Quit", 6, "6qQ", ActionMethods.exitProgram)
+            new MenuItem("Quit", 5, "5qQ", ActionMethods.exitProgram)
         };
 
         // Add menu items to the main menu
