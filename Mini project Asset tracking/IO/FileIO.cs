@@ -16,6 +16,10 @@ namespace Mini_project_Asset_tracking.IO
         public static void ReadAssetsFromFile(string filename)
         {
             string JSONdata = "";
+
+            // Set dir to repository
+            Environment.CurrentDirectory = "../../..";
+
             try
             {
                 // Read all data to buffer string
