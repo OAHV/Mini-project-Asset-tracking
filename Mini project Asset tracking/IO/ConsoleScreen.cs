@@ -10,14 +10,17 @@ namespace Mini_project_Asset_tracking.IO
 {
     public static class ConsoleScreen
     {
-        // Default values
-        static int errorRow = 0;
-        static int errorCol = 40;
-        static int errorLenth = 20;
+        // Default values for error messages
+        static int errorRow = 0;        // Row
+        static int errorCol = 40;       // Column
+        static int errorLenth = 40;     // Length
  
         // Cursor and color control
+
+        // Class that keeps track of cursor positions
         public class CursorPos
         {
+            // Constructor
             public CursorPos(int row, int col)
             {
                 Row = row;
@@ -27,6 +30,7 @@ namespace Mini_project_Asset_tracking.IO
             private int Row { get; set; }
             private int Col { get; set; }
 
+            // Set the screen cursor position to this object's values
             public void Set()
             {
                 Console.CursorTop = Row;
@@ -34,13 +38,16 @@ namespace Mini_project_Asset_tracking.IO
             }
         }
 
+        // A stack of cursor positions to push, pop and read from
         static Stack<CursorPos> cursorStack = new Stack<CursorPos>();
 
+        // Save the current screen cursor position to the stack
         public static void PushCursor()
         {
             cursorStack.Push(new CursorPos(Console.CursorTop, Console.CursorLeft));
         }
 
+        // Set the screen cursor position to the top stack values and pop it
         public static CursorPos PopCursor()
         {
             CursorPos cursorPos = cursorStack.Pop();
@@ -48,22 +55,20 @@ namespace Mini_project_Asset_tracking.IO
             return cursorPos;
         }
 
+        // Set the screen cursor position (no stack involvement)
         public static void curSet(int row = 0, int col = 0)
         {
             Console.CursorTop = row;
             Console.CursorLeft = col;
         }
 
-        public static void saveCur()
-        {
-            PushCursor();
-        }
-
+        // Set screen cursor position to stack top values (no pop)
         public static void restoreCur()
         {
             cursorStack.Peek().Set();
         }
 
+        // Set text colors to alert (warning) for error messages etc
         public static void setAlertColor(bool alert = false)
         {
             if (alert)
@@ -74,6 +79,7 @@ namespace Mini_project_Asset_tracking.IO
             else Console.ResetColor();
         }
 
+        // Set text colors to highligh for headings etc
         public static void highLight(bool h = true)
         {
             if (h)
@@ -103,22 +109,36 @@ namespace Mini_project_Asset_tracking.IO
         // Erase rows from given row and down the screen
         public static void clearLowerPart(int fromRow)
         {
+            // Calculate window last row depending on window hieght
             int lastRow = Console.WindowHeight - fromRow - 1;
+
+            // Erase from top to bottom
             Console.CursorTop = fromRow;
             Console.CursorLeft = 0;
             for (int r = 0; r < lastRow; r++) Console.WriteLine(" ".PadRight(Console.WindowWidth - Console.CursorLeft));
+
+            // Set cursor at top of area
             Console.CursorTop = fromRow;
         }
 
         // User input methods with error and validity control
         public static string readString(string prompt, string errorMessage)
         {
-            string inputBuffer = "";
-            Console.Write(prompt);
+            string inputBuffer = "";        // Empty string buffer
+            Console.Write(prompt);          // Print input prompt
+            PushCursor();     // Save cursor to stack
+            // Read user input until valid
             while ((inputBuffer = Console.ReadLine()) == "")
             {
-                ConsoleScreen.errorDisplay(errorMessage);
+                errorDisplay(errorMessage);
+                restoreCur(); // Set cursor position back
             }
+            // Restor previous cursor position
+            ConsoleScreen.PopCursor();
+            // Write extra linefeed
+            Console.WriteLine("");
+
+            // Return the user input string
             return inputBuffer;
         }
 
@@ -127,6 +147,7 @@ namespace Mini_project_Asset_tracking.IO
             string inputBuffer = "";
             DateTime inputDate = new DateTime();
             Console.Write(prompt);
+            ConsoleScreen.PushCursor();
             while (inputBuffer == "")
             {
                 inputBuffer = Console.ReadLine();
@@ -137,10 +158,13 @@ namespace Mini_project_Asset_tracking.IO
                 catch
                 {
                     ConsoleScreen.errorDisplay(errorMessage);
+                    ConsoleScreen.restoreCur();
                     inputBuffer = "";
                     continue;
                 }
             }
+            ConsoleScreen.PopCursor();
+            Console.WriteLine("");
             return inputDate;
         }
 
@@ -149,6 +173,7 @@ namespace Mini_project_Asset_tracking.IO
             string inputBuffer = "";
             int inputInt = 0;
             Console.Write(prompt);
+            ConsoleScreen.PushCursor();
             while (inputBuffer == "")
             {
                 inputBuffer = Console.ReadLine();
@@ -159,15 +184,19 @@ namespace Mini_project_Asset_tracking.IO
                 catch
                 {
                     ConsoleScreen.errorDisplay(errorMessage);
+                    ConsoleScreen.restoreCur();
                     inputBuffer = "";
                     continue;
                 }
                 if (inputInt < 0)
                 {
                     ConsoleScreen.errorDisplay(errorMessage);
+                    ConsoleScreen.restoreCur();
                     inputBuffer = "";
                 }
             }
+            ConsoleScreen.PopCursor();
+            Console.WriteLine("");
             return inputInt;
         }
 
@@ -180,7 +209,7 @@ namespace Mini_project_Asset_tracking.IO
 
             // Promt for input (and save cursor position)
             Console.Write(prompt);
-            saveCur();
+            PushCursor();
 
             // Erase lower part of screen for showing choises
             clearLowerPart(19);

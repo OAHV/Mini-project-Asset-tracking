@@ -95,14 +95,14 @@ namespace Mini_project_Asset_tracking
 
             // Clear screen, save cursor and list assets
             Console.Clear();
-            ConsoleScreen.saveCur();
+            ConsoleScreen.PushCursor();
             listAssets();
 
             // At top of screen, ask for user choise
             ConsoleScreen.restoreCur();
             Console.WriteLine("Delete asset");
             Console.Write("Choose asset (n=next, p=previous, d=delete, q=quit): ");
-            ConsoleScreen.saveCur();
+            ConsoleScreen.PushCursor();
             //Row = Console.CursorTop;
             //Col = Console.CursorLeft;
 
@@ -153,7 +153,7 @@ namespace Mini_project_Asset_tracking
         public static void sortAssets()
         {
             Console.Clear();
-            ConsoleScreen.saveCur();
+            ConsoleScreen.PushCursor();
             listAssets();
             ConsoleScreen.restoreCur();
             Menues.sortMenu.Display();
