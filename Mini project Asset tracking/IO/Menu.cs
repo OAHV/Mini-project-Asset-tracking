@@ -14,12 +14,13 @@ namespace Mini_project_Asset_tracking
 
         // Create a sort menu
         public static Menu sortMenu = new Menu("Choises for sorting", "Sort by: ", new List<MenuItem> {
-                new MenuItem("Sort by Price", 1, "1pP", ActionMethods.sortAssetsByPrice),
-                new MenuItem("Sort by Date purchased", 2, "2pPdD", ActionMethods.sortAssetsByDate),
-                new MenuItem("Sort by Date Name", 3, "3nN", ActionMethods.sortAssetsByName),
-                new MenuItem("Sort by Date Model", 4, "4mM", ActionMethods.sortAssetsByModel),
-                new MenuItem("Sort by Date Type", 5, "5tT", ActionMethods.sortAssetsByType),
-                new MenuItem("Sort by Date Brand", 6, "6bB", ActionMethods.sortAssetsByBrand)
+                new MenuItem("Sort by Office", 1, "1oO", ActionMethods.sortAssetsByOffice),
+                new MenuItem("Sort by Price", 2, "2pP", ActionMethods.sortAssetsByPrice),
+                new MenuItem("Sort by Date purchased", 3, "3pPdD", ActionMethods.sortAssetsByDate),
+                new MenuItem("Sort by Date Name", 4, "4nN", ActionMethods.sortAssetsByName),
+                new MenuItem("Sort by Date Model", 5, "5mM", ActionMethods.sortAssetsByModel),
+                new MenuItem("Sort by Date Type", 6, "6tT", ActionMethods.sortAssetsByType),
+                new MenuItem("Sort by Date Brand", 7, "7bB", ActionMethods.sortAssetsByBrand)
             });
 
         // Create a main menu

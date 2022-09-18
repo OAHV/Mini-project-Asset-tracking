@@ -11,7 +11,7 @@ namespace Mini_project_Asset_tracking
     static class ActionMethods
     {
         public static bool exit = false;        // Signal to exit program main loop
-        static int lowerPartOfScreen = 8;       // Where to list assets on screen
+        static int lowerPartOfScreen = 10;       // Where to list assets on screen
 
         // List assets on screen
         public static void listAssets()
@@ -179,6 +179,12 @@ namespace Mini_project_Asset_tracking
         {
             AssetLists.Assets = AssetLists.Assets.OrderBy(x => x.PurchaseDate).ToList();
         }
+
+        public static void sortAssetsByOffice()
+        {
+            AssetLists.Assets = AssetLists.Assets.OrderBy(x => x.Kontor).ThenBy(x => x.PurchaseDate).ToList();
+        }
+
 
         public static void sortAssetsByPrice()
         {
