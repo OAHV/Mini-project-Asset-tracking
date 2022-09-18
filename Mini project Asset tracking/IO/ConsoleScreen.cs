@@ -10,6 +10,8 @@ namespace Mini_project_Asset_tracking.IO
 {
     public static class ConsoleScreen
     {
+        // This class handles input from and output to the screen
+
         // Default values for error messages
         static int errorRow = 0;        // Row
         static int errorCol = 40;       // Column
@@ -18,7 +20,9 @@ namespace Mini_project_Asset_tracking.IO
          // Error messaging
         public static void errorDisplay(string message)
         {
+            // Save cursor position
             CursorControl.PushCursor();
+
             // Set position and color - write message
             CursorControl.curSet(errorRow, errorCol);
             CursorControl.setAlertColor(true);
@@ -30,6 +34,8 @@ namespace Mini_project_Asset_tracking.IO
             CursorControl.curSet(errorRow, errorCol);
             CursorControl.setAlertColor(false);
             Console.Write(" ".PadRight(errorLenth));
+
+            // Return to previous cursor position
             CursorControl.PopCursor();
         }
 
@@ -62,7 +68,7 @@ namespace Mini_project_Asset_tracking.IO
             }
             // Restor previous cursor position
             CursorControl.PopCursor();
-            // Write extra linefeed
+            // Write extra linefeed corresponding to the user pressing "Enter"-key
             Console.WriteLine("");
 
             // Return the user input string
@@ -80,10 +86,12 @@ namespace Mini_project_Asset_tracking.IO
                 inputBuffer = Console.ReadLine();
                 try
                 {
+                    // See if input is a valid date
                     inputDate = Convert.ToDateTime(inputBuffer);
                 }
                 catch
                 {
+                    // If not a valid date - try again
                     ConsoleScreen.errorDisplay(errorMessage);
                     CursorControl.restoreCur();
                     inputBuffer = "";
@@ -91,6 +99,7 @@ namespace Mini_project_Asset_tracking.IO
                 }
             }
             CursorControl.PopCursor();
+            // Write extra linefeed corresponding to the user pressing "Enter"-key
             Console.WriteLine("");
             return inputDate;
         }
@@ -123,12 +132,13 @@ namespace Mini_project_Asset_tracking.IO
                 }
             }
             CursorControl.PopCursor();
+            // Write extra linefeed corresponding to the user pressing "Enter"-key
             Console.WriteLine("");
             return inputInt;
         }
 
         // User choise from a list of valid choises
-        public static string readStringFromList(string prompt, string errorMessage, List<string> list)
+        public static string readStringFromList(string prompt, string errorMessage, List<string> validList)
         {
             string found = "";
             int matches = 0;
@@ -140,7 +150,7 @@ namespace Mini_project_Asset_tracking.IO
 
             // Erase lower part of screen for showing choises
             clearLowerPart(19);
-            foreach (string str in list) Console.WriteLine(str);
+            foreach (string str in validList) Console.WriteLine(str);
 
             // Until exactly one match from list of valid choises
             while(matches != 1)
@@ -155,7 +165,7 @@ namespace Mini_project_Asset_tracking.IO
 
                 // Erase lower part of screen for showing now possible choises
                 clearLowerPart(19);
-                foreach(string s in list)
+                foreach(string s in validList)
                 {
                     // If a valid choise contains the now input buffer
                     if (s.ToLower().Contains(inputBuffer.ToLower()))
@@ -179,6 +189,7 @@ namespace Mini_project_Asset_tracking.IO
             }
             // Now we have found exactly one match
             CursorControl.PopCursor();
+            // Write extra linefeed corresponding to the user pressing "Enter"-key
             Console.WriteLine("");
 
             // Return the found list item (string)

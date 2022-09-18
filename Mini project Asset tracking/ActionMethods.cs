@@ -57,7 +57,7 @@ namespace Mini_project_Asset_tracking
 
             // User input of Name, Model, Price, Purchase date, Type and Brand
             newAsset.Name = ConsoleScreen.readString("Name: ", "No input. Please try again: ");
-            newAsset.Display(displayAtRow);
+            newAsset.Display(displayAtRow);     // Update asset template on screen
             newAsset.Model = ConsoleScreen.readString("Model: ", "No input. Please try again: ");
             newAsset.Display(displayAtRow);
             newAsset.Type = ConsoleScreen.readStringFromList("Type: ", "Not a Type. Please try again: ", AssetLists.Types);
@@ -99,8 +99,6 @@ namespace Mini_project_Asset_tracking
         // Delete an asset by user choise
         public static void deleteAsset()
         {
-            // int Row = 0;    // User input row on screen
-            // int Col = 0;    // Input column
             int i = 0;      // Index
             char c = ' ';   // User input choise
 
@@ -114,8 +112,6 @@ namespace Mini_project_Asset_tracking
             Console.WriteLine("Delete asset");
             Console.Write("Choose asset (n=next, p=previous, d=delete, q=quit): ");
             CursorControl.PushCursor();
-            //Row = Console.CursorTop;
-            //Col = Console.CursorLeft;
 
             // Display which asset is in focus below user input
             AssetLists.Assets[i].Display(3);
@@ -163,17 +159,24 @@ namespace Mini_project_Asset_tracking
 
         public static void sortAssets()
         {
+            // THe choise Sort displays a new menu for sorting choises
             Console.Clear();
             CursorControl.PushCursor();
+
+            // List assets below
             listAssets();
             CursorControl.restoreCur();
+
+            // Display the sorting menu
             Menues.sortMenu.Display();
+            //  Take input to menu from user
             Menues.sortMenu.Input();
         }
 
+        // Sorting choises actions
+        // All are sorted by date in second hand
         public static void sortAssetsByDate()
         {
-            Console.WriteLine("In sortAssetsByDate");
             AssetLists.Assets = AssetLists.Assets.OrderBy(x => x.PurchaseDate).ToList();
         }
 
