@@ -23,7 +23,7 @@ namespace Mini_project_Asset_tracking.IO
             }
             catch
             {
-                ConsoleScreen.errorDisplay("Error reading file");
+                // ConsoleScreen.errorDisplay("Error reading file");
             }
             if (JSONdata != "")
             {
@@ -40,6 +40,19 @@ namespace Mini_project_Asset_tracking.IO
             // Write ie to JSON file
             File.WriteAllText(filename, JSONdata);
         }
+
+        //public static void ReadFile()
+        //{
+        //    OpenFileDialog openDialog = new OpenFileDialog();
+        //    openDialog.Title = "Select A File";
+        //    openDialog.Filter = "Text Files (*.txt)|*.txt" + "|" +
+        //                        "Image Files (*.png;*.jpg)|*.png;*.jpg" + "|" +
+        //                        "All Files (*.*)|*.*";
+        //    if (openDialog.ShowDialog() == DialogResult.OK)
+        //    {
+        //        string file = openDialog.FileName;
+        //    }
+        //}
     }
 }
 

@@ -39,6 +39,12 @@ namespace Mini_project_Asset_tracking
             foreach (Asset a in AssetLists.Assets) a.Display();
         }
 
+        // Read assets from file
+        //public static void readFile()
+        //{
+            
+        //}
+
         // Add new assets to list by user input
         public static void addAssets()
         {
