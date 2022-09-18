@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mini_project_Asset_tracking
 {
-    internal class Currency
+    public class Currency
     {
         public Currency(string name, string symbol, string country, double exchangeFactor)
         {
@@ -14,23 +14,33 @@ namespace Mini_project_Asset_tracking
             Symbol = symbol;
             Country = country;
             ExchangeFactor = exchangeFactor;
+
+            //currencies.Add(this);
         }
 
-        string Name { get; set; }
-        string Symbol { get; set; }
-        string Country { get; set; }
-        double ExchangeFactor { get; set; }
+        public string Name { get; set; }
+        public string Symbol { get; set; }
+        public string Country { get; set; }
+        public double ExchangeFactor { get; set; }
 
-        double toDollar(double amount)
+        public double toDollar(double amount)
         {
-            return ExchangeFactor * amount;
+            return amount / ExchangeFactor;
         }
 
-        double fromDollar(double dollarAmount)
+        public double fromDollar(double dollarAmount)
         {
-            return dollarAmount / ExchangeFactor;
+            return dollarAmount * ExchangeFactor;
         }
 
+        public static List<Currency> currencies = new List<Currency>
+        {
+            new Currency("Danish Crown", "DKK", "Denmark", 6.5),
+            new Currency("Swedish Crown", "SEK", "Sweden", 9.5),
+            new Currency("US Dollar", "$", "USA", 1.2),
+            new Currency("UK Pound", "£", "England", 0.8),
+            new Currency("Euro", "EUR", "EU", 0.9)
+        };
     }
 }
 

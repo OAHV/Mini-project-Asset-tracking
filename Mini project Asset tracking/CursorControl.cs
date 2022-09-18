@@ -10,6 +10,10 @@ namespace Mini_project_Asset_tracking
     {
         // Cursor and color control
 
+        // Implements a stack for cursor positions that can
+        // be pushed (saved to stack), restored (read from stack)
+        // and poped (read and then removed from stack).
+
         // Class that keeps track of cursor positions
         public class CursorPos
         {

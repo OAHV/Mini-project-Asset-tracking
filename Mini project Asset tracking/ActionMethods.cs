@@ -21,9 +21,18 @@ namespace Mini_project_Asset_tracking
 
             // Print higlighted header
             CursorControl.highLight();
-            Console.WriteLine("Name".PadRight(10) + "Model".PadRight(10) + "Price".PadLeft(7)
-                + "   " + "Purchased".PadRight(12) + "End-of-Life".PadRight(12)
-                + "Type".PadRight(10) + "Brand".PadRight(10));
+            Console.WriteLine(
+                "Name".PadRight(10) 
+                + "Model".PadRight(10)
+                + "Type".PadRight(10)
+                + "Brand".PadRight(10)
+                + "Office".PadRight(11)
+                + "Country".PadRight(10)
+                + "Price".PadLeft(10)
+                + "   $-Price".PadLeft(7)
+                + "   " + "Purchased".PadRight(12) 
+                + "End-of-Life".PadRight(12)
+                );
             CursorControl.setAlertColor();
 
             // Print list of assets
@@ -34,7 +43,7 @@ namespace Mini_project_Asset_tracking
         public static void addAssets()
         {
             char ok = '-';      // User input
-            Asset newAsset = new Asset(new DateTime(), new DateTime(), 0, "-model-", "-name-", "-type-", "-Brand-");
+            Asset newAsset = new Asset(new DateTime(), new DateTime(), 0, "-model-", "-name-", "-type-", "-Brand-", "Paris");
 
             // Where to display the new asset template as it is built
             int displayAtRow = lowerPartOfScreen - 2;
@@ -51,13 +60,15 @@ namespace Mini_project_Asset_tracking
             newAsset.Display(displayAtRow);
             newAsset.Model = ConsoleScreen.readString("Model: ", "No input. Please try again: ");
             newAsset.Display(displayAtRow);
-            newAsset.Price = ConsoleScreen.readInt("Price ($): ", "Not a number. Please try again: ");
-            newAsset.Display(displayAtRow);
-            newAsset.PurchaseDate = ConsoleScreen.readDate("Purchase date: ", "Not a date. Please try again: ");
-            newAsset.Display(displayAtRow);
             newAsset.Type = ConsoleScreen.readStringFromList("Type: ", "Not a Type. Please try again: ", AssetLists.Types);
             newAsset.Display(displayAtRow);
             newAsset.Brand = ConsoleScreen.readStringFromList("Brand: ", "Not a Brand. Please try again: ", AssetLists.Brands);
+            newAsset.Display(displayAtRow);
+            newAsset.Kontor = ConsoleScreen.readStringFromList("Office: ", "Not an Office. Please try again: ", AssetLists.Offices);
+            newAsset.Display(displayAtRow);
+            newAsset.Price = ConsoleScreen.readInt("Price ($): ", "Not a number. Please try again: ");
+            newAsset.Display(displayAtRow);
+            newAsset.PurchaseDate = ConsoleScreen.readDate("Purchase date: ", "Not a date. Please try again: ");
             newAsset.Display(displayAtRow);
 
             // Calculate End-of-Life (three years after Purchase)
