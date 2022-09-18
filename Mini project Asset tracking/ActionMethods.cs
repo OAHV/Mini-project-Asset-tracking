@@ -20,11 +20,11 @@ namespace Mini_project_Asset_tracking
             ConsoleScreen.clearLowerPart(lowerPartOfScreen);
 
             // Print higlighted header
-            ConsoleScreen.highLight();
+            CursorControl.highLight();
             Console.WriteLine("Name".PadRight(10) + "Model".PadRight(10) + "Price".PadLeft(7)
                 + "   " + "Purchased".PadRight(12) + "End-of-Life".PadRight(12)
                 + "Type".PadRight(10) + "Brand".PadRight(10));
-            ConsoleScreen.setAlertColor();
+            CursorControl.setAlertColor();
 
             // Print list of assets
             foreach (Asset a in AssetLists.Assets) a.Display();
@@ -95,14 +95,14 @@ namespace Mini_project_Asset_tracking
 
             // Clear screen, save cursor and list assets
             Console.Clear();
-            ConsoleScreen.PushCursor();
+            CursorControl.PushCursor();
             listAssets();
 
             // At top of screen, ask for user choise
-            ConsoleScreen.restoreCur();
+            CursorControl.restoreCur();
             Console.WriteLine("Delete asset");
             Console.Write("Choose asset (n=next, p=previous, d=delete, q=quit): ");
-            ConsoleScreen.PushCursor();
+            CursorControl.PushCursor();
             //Row = Console.CursorTop;
             //Col = Console.CursorLeft;
 
@@ -110,7 +110,7 @@ namespace Mini_project_Asset_tracking
             AssetLists.Assets[i].Display(3);
 
             // Input user choise (exit on 'q')
-            ConsoleScreen.restoreCur();
+            CursorControl.restoreCur();
             while ((c = Console.ReadKey().KeyChar) != 'q')
             {
                 switch (c)
@@ -144,18 +144,18 @@ namespace Mini_project_Asset_tracking
                 AssetLists.Assets[i].Display(3);
 
                 // Restore cursor to input point and erase rest of row
-                ConsoleScreen.restoreCur();
+                CursorControl.restoreCur();
                 Console.Write(" ".PadRight(Console.WindowWidth));
-                ConsoleScreen.restoreCur();
+                CursorControl.restoreCur();
             }
         }
 
         public static void sortAssets()
         {
             Console.Clear();
-            ConsoleScreen.PushCursor();
+            CursorControl.PushCursor();
             listAssets();
-            ConsoleScreen.restoreCur();
+            CursorControl.restoreCur();
             Menues.sortMenu.Display();
             Menues.sortMenu.Input();
         }
@@ -168,37 +168,31 @@ namespace Mini_project_Asset_tracking
 
         public static void sortAssetsByPrice()
         {
-            Console.WriteLine("In sortAssetsByPrice");
             AssetLists.Assets = AssetLists.Assets.OrderBy(x => x.Price).ThenBy(x => x.PurchaseDate).ToList();
         }
 
         public static void sortAssetsByName()
         {
-            Console.WriteLine("In sortAssetsByName");
             AssetLists.Assets = AssetLists.Assets.OrderBy(x => x.Name).ThenBy(x => x.PurchaseDate).ToList();
         }
         public static void sortAssetsByModel()
         {
-            Console.WriteLine("In sortAssetsByModel");
             AssetLists.Assets = AssetLists.Assets.OrderBy(x => x.Model).ThenBy(x => x.PurchaseDate).ToList();
         }
 
         public static void sortAssetsByType()
         {
-            Console.WriteLine("In sortAssetsByType");
             AssetLists.Assets = AssetLists.Assets.OrderBy(x => x.Type).ThenBy(x => x.PurchaseDate).ToList();
         }
 
         public static void sortAssetsByBrand()
         {
-            Console.WriteLine("In sortAssetsByBrand");
             AssetLists.Assets = AssetLists.Assets.OrderBy(x => x.Brand).ThenBy(x => x.PurchaseDate).ToList();
         }
 
         public static void exitProgram()
         {
             ConsoleScreen.clearLowerPart(8);
-            Console.WriteLine("Exit program method");
             exit = true;
         }
     }

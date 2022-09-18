@@ -15,95 +15,96 @@ namespace Mini_project_Asset_tracking.IO
         static int errorCol = 40;       // Column
         static int errorLenth = 40;     // Length
  
-        // Cursor and color control
+        //// Cursor and color control
 
-        // Class that keeps track of cursor positions
-        public class CursorPos
-        {
-            // Constructor
-            public CursorPos(int row, int col)
-            {
-                Row = row;
-                Col = col;
-            }
+        //// Class that keeps track of cursor positions
+        //public class CursorPos
+        //{
+        //    // Constructor
+        //    public CursorPos(int row, int col)
+        //    {
+        //        Row = row;
+        //        Col = col;
+        //    }
 
-            private int Row { get; set; }
-            private int Col { get; set; }
+        //    private int Row { get; set; }
+        //    private int Col { get; set; }
 
-            // Set the screen cursor position to this object's values
-            public void Set()
-            {
-                Console.CursorTop = Row;
-                Console.CursorLeft = Col;
-            }
-        }
+        //    // Set the screen cursor position to this object's values
+        //    public void Set()
+        //    {
+        //        Console.CursorTop = Row;
+        //        Console.CursorLeft = Col;
+        //    }
+        //}
 
-        // A stack of cursor positions to push, pop and read from
-        static Stack<CursorPos> cursorStack = new Stack<CursorPos>();
+        //// A stack of cursor positions to push, pop and read from
+        //static Stack<CursorPos> cursorStack = new Stack<CursorPos>();
 
-        // Save the current screen cursor position to the stack
-        public static void PushCursor()
-        {
-            cursorStack.Push(new CursorPos(Console.CursorTop, Console.CursorLeft));
-        }
+        //// Save the current screen cursor position to the stack
+        //public static void PushCursor()
+        //{
+        //    cursorStack.Push(new CursorPos(Console.CursorTop, Console.CursorLeft));
+        //}
 
-        // Set the screen cursor position to the top stack values and pop it
-        public static CursorPos PopCursor()
-        {
-            CursorPos cursorPos = cursorStack.Pop();
-            cursorPos.Set();
-            return cursorPos;
-        }
+        //// Set the screen cursor position to the top stack values and pop it
+        //public static CursorPos PopCursor()
+        //{
+        //    CursorPos cursorPos = cursorStack.Pop();
+        //    cursorPos.Set();
+        //    return cursorPos;
+        //}
 
-        // Set the screen cursor position (no stack involvement)
-        public static void curSet(int row = 0, int col = 0)
-        {
-            Console.CursorTop = row;
-            Console.CursorLeft = col;
-        }
+        //// Set the screen cursor position (no stack involvement)
+        //public static void curSet(int row = 0, int col = 0)
+        //{
+        //    Console.CursorTop = row;
+        //    Console.CursorLeft = col;
+        //}
 
-        // Set screen cursor position to stack top values (no pop)
-        public static void restoreCur()
-        {
-            cursorStack.Peek().Set();
-        }
+        //// Set screen cursor position to stack top values (no pop)
+        //public static void restoreCur()
+        //{
+        //    cursorStack.Peek().Set();
+        //}
 
-        // Set text colors to alert (warning) for error messages etc
-        public static void setAlertColor(bool alert = false)
-        {
-            if (alert)
-            {
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.BackgroundColor = ConsoleColor.Red;
-            }
-            else Console.ResetColor();
-        }
+        //// Set text colors to alert (warning) for error messages etc
+        //public static void setAlertColor(bool alert = false)
+        //{
+        //    if (alert)
+        //    {
+        //        Console.ForegroundColor = ConsoleColor.White;
+        //        Console.BackgroundColor = ConsoleColor.Red;
+        //    }
+        //    else Console.ResetColor();
+        //}
 
-        // Set text colors to highligh for headings etc
-        public static void highLight(bool h = true)
-        {
-            if (h)
-            {
-                Console.ForegroundColor = ConsoleColor.Black;
-                Console.BackgroundColor = ConsoleColor.White;
-            } else Console.ResetColor();
-        }
+        //// Set text colors to highligh for headings etc
+        //public static void highLight(bool h = true)
+        //{
+        //    if (h)
+        //    {
+        //        Console.ForegroundColor = ConsoleColor.Black;
+        //        Console.BackgroundColor = ConsoleColor.White;
+        //    } else Console.ResetColor();
+        //}
 
         // Error messaging
         public static void errorDisplay(string message)
         {
-            PushCursor();
+            CursorControl.PushCursor();
             // Set position and color - write message
-            curSet(errorRow, errorCol);
-            setAlertColor(true);
+            CursorControl.curSet(errorRow, errorCol);
+            CursorControl.setAlertColor(true);
             Console.Write(message.PadRight(errorLenth));
+            CursorControl.restoreCur();
 
             // Wait for key pressed - erase message
             while (!Console.KeyAvailable) ;
-            curSet(errorRow, errorCol);
-            setAlertColor(false);
+            CursorControl.curSet(errorRow, errorCol);
+            CursorControl.setAlertColor(false);
             Console.Write(" ".PadRight(errorLenth));
-            PopCursor();
+            CursorControl.PopCursor();
         }
 
         // Erase rows from given row and down the screen
@@ -126,15 +127,15 @@ namespace Mini_project_Asset_tracking.IO
         {
             string inputBuffer = "";        // Empty string buffer
             Console.Write(prompt);          // Print input prompt
-            PushCursor();     // Save cursor to stack
+            CursorControl.PushCursor();     // Save cursor to stack
             // Read user input until valid
             while ((inputBuffer = Console.ReadLine()) == "")
             {
                 errorDisplay(errorMessage);
-                restoreCur(); // Set cursor position back
+                CursorControl.restoreCur(); // Set cursor position back
             }
             // Restor previous cursor position
-            ConsoleScreen.PopCursor();
+            CursorControl.PopCursor();
             // Write extra linefeed
             Console.WriteLine("");
 
@@ -147,7 +148,7 @@ namespace Mini_project_Asset_tracking.IO
             string inputBuffer = "";
             DateTime inputDate = new DateTime();
             Console.Write(prompt);
-            ConsoleScreen.PushCursor();
+            CursorControl.PushCursor();
             while (inputBuffer == "")
             {
                 inputBuffer = Console.ReadLine();
@@ -158,12 +159,12 @@ namespace Mini_project_Asset_tracking.IO
                 catch
                 {
                     ConsoleScreen.errorDisplay(errorMessage);
-                    ConsoleScreen.restoreCur();
+                    CursorControl.restoreCur();
                     inputBuffer = "";
                     continue;
                 }
             }
-            ConsoleScreen.PopCursor();
+            CursorControl.PopCursor();
             Console.WriteLine("");
             return inputDate;
         }
@@ -173,7 +174,7 @@ namespace Mini_project_Asset_tracking.IO
             string inputBuffer = "";
             int inputInt = 0;
             Console.Write(prompt);
-            ConsoleScreen.PushCursor();
+            CursorControl.PushCursor();
             while (inputBuffer == "")
             {
                 inputBuffer = Console.ReadLine();
@@ -183,19 +184,19 @@ namespace Mini_project_Asset_tracking.IO
                 }
                 catch
                 {
-                    ConsoleScreen.errorDisplay(errorMessage);
-                    ConsoleScreen.restoreCur();
+                    errorDisplay(errorMessage);
+                    CursorControl.restoreCur();
                     inputBuffer = "";
                     continue;
                 }
                 if (inputInt < 0)
                 {
-                    ConsoleScreen.errorDisplay(errorMessage);
-                    ConsoleScreen.restoreCur();
+                    errorDisplay(errorMessage);
+                    CursorControl.restoreCur();
                     inputBuffer = "";
                 }
             }
-            ConsoleScreen.PopCursor();
+            CursorControl.PopCursor();
             Console.WriteLine("");
             return inputInt;
         }
@@ -209,7 +210,7 @@ namespace Mini_project_Asset_tracking.IO
 
             // Promt for input (and save cursor position)
             Console.Write(prompt);
-            PushCursor();
+            CursorControl.PushCursor();
 
             // Erase lower part of screen for showing choises
             clearLowerPart(19);
@@ -221,7 +222,7 @@ namespace Mini_project_Asset_tracking.IO
                 matches = 0;
 
                 // Restore cursor to input position
-                restoreCur();
+                CursorControl.restoreCur();
 
                 // Read a user input character and add it to the unput buffer
                 inputBuffer += Console.ReadKey().KeyChar.ToString();
@@ -251,7 +252,7 @@ namespace Mini_project_Asset_tracking.IO
                 }
             }
             // Now we have found exactly one match
-            PopCursor();
+            CursorControl.PopCursor();
             Console.WriteLine("");
 
             // Return the found list item (string)
