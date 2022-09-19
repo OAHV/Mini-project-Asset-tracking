@@ -15,15 +15,15 @@
     "Type": "Laptop",
     "Brand": "HP",
     "Kontor": "Copenhagen",
-    "EndOfLife": "2025-09-13T00:00:00",
-    "PurchaseDate": "2022-09-13T00:00:00",
+    "EndOfLife": "2023-02-13T00:00:00",
+    "PurchaseDate": "2020-02-13T00:00:00",
     "Price": 450
   },
   {
     "Name": "Vivobook",
     "Model": "S14 i5",
     "Type": "Laptop",
-    "Brand": "iPhone",
+    "Brand": "ASUS",
     "Kontor": "Copenhagen",
     "EndOfLife": "2025-09-17T00:00:00",
     "PurchaseDate": "2022-09-17T00:00:00",

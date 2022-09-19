@@ -16,7 +16,7 @@ namespace Mini_project_Asset_tracking
         // They could be implemented with their proper menues and files for saving
         public static List<string> Types = new List<string> { "Phone", "Tablet", "Laptop", "Computer", "Server", "Coffee machine", "Sound system" };
         public static List<string> Brands = new List<string> { "Dell", "ASUS", "MacIntosh", "HP", "iPhone", "Samsung", "Xerox", "Bang Olufsen" };
-        public static List<string> Offices = new List<string> { "Malmö", "Copenhagen", "Stockholm", "New York", "Paris", "Berlin" };
+        public static List<string> Offices = new List<string> { "Malmö", "Copenhagen", "London", "New York", "Paris", "Berlin" };
     }
     public class Asset
     {
